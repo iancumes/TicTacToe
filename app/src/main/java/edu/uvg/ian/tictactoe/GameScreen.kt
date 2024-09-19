@@ -58,9 +58,9 @@ fun PantallaJuego(jugador1: String, jugador2: String, tamaño: Int) {
                 for (j in 0 until tamaño) {
                     Box(
                         modifier = Modifier
-                            .size(80.dp)
+                            .size(100.dp)
                             .border(2.dp, Color.Black) // Añadimos borde negro para la visibilidad
-                            .background(Color.Gray)
+                            .background(Color.White)
                             .padding(4.dp)
                             .clickable(enabled = tablero[i][j].isEmpty()) {
                                 if (ganador == null) {

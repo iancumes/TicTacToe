@@ -1,24 +1,27 @@
 package edu.uvg.ian.tictactoe
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import edu.uvg.ian.tictactoe.GameScreen
+import edu.uvg.ian.tictactoe.R // Asegúrate de tener tu imagen en res/drawable
 
 class InicioScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,54 +46,17 @@ fun PantallaInicio() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Introduce los nombres de los jugadores")
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Campo de entrada para el Jugador 1
-        BasicTextField(
-            value = jugador1,
-            onValueChange = { jugador1 = it },
+        // Imagen en la parte superior
+        Image(
+            painter = painterResource(id = R.drawable.totito), // Cambia esto a tu imagen
+            contentDescription = "Logo Tic Tac Toe",
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.surface)
-                        .padding(8.dp)
-                ) {
-                    if (jugador1.isEmpty()) {
-                        Text("Jugador 1")
-                    }
-                    innerTextField()
-                }
-            }
+                .size(150.dp)
+                .padding(bottom = 16.dp), // Añade espacio debajo de la imagen
+            contentScale = ContentScale.Fit
         )
 
-        // Campo de entrada para el Jugador 2
-        BasicTextField(
-            value = jugador2,
-            onValueChange = { jugador2 = it },
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.surface)
-                        .padding(8.dp)
-                ) {
-                    if (jugador2.isEmpty()) {
-                        Text("Jugador 2")
-                    }
-                    innerTextField()
-                }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Selección del tamaño del tablero
+        // Selección del tamaño del tablero al principio
         Text("Selecciona el tamaño del tablero")
         Row(
             modifier = Modifier.padding(16.dp),
@@ -105,6 +71,50 @@ fun PantallaInicio() {
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Campo de entrada para el Jugador 1 (color rojo)
+        BasicTextField(
+            value = jugador1,
+            onValueChange = { jugador1 = it },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(8.dp)
+                ) {
+                    if (jugador1.isEmpty()) {
+                        Text("Jugador 1", color = Color.Red) // Color rojo para Jugador 1
+                    }
+                    innerTextField()
+                }
+            }
+        )
+
+        // Campo de entrada para el Jugador 2 (color azul)
+        BasicTextField(
+            value = jugador2,
+            onValueChange = { jugador2 = it },
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.surface)
+                        .padding(8.dp)
+                ) {
+                    if (jugador2.isEmpty()) {
+                        Text("Jugador 2", color = Color.Blue) // Color azul para Jugador 2
+                    }
+                    innerTextField()
+                }
+            }
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

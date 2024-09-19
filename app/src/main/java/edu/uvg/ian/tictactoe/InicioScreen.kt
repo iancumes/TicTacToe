@@ -1,4 +1,4 @@
-package com.example.tictactoe
+package edu.uvg.ian.tictactoe
 
 import android.content.Context
 import android.content.Intent

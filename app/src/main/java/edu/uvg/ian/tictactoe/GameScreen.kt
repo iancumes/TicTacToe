@@ -21,19 +21,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-
-
+import edu.uvg.ian.tictactoe.ui.theme.TicTacToeTheme
 
 
 class GameScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val jugador1 = intent.getStringExtra("jugador1") ?: "Jugador 1"
-            val jugador2 = intent.getStringExtra("jugador2") ?: "Jugador 2"
-            val tamañoTablero = intent.getIntExtra("tamañoTablero", 3)
-            PantallaJuego(jugador1, jugador2, tamañoTablero)
+            TicTacToeTheme {
+                val jugador1 = intent.getStringExtra("jugador1") ?: "Jugador 1"
+                val jugador2 = intent.getStringExtra("jugador2") ?: "Jugador 2"
+                val tamañoTablero = intent.getIntExtra("tamañoTablero", 3)
+                PantallaJuego(jugador1, jugador2, tamañoTablero)
+            }
         }
     }
 }
@@ -139,5 +139,7 @@ fun tableroLleno(tablero: Array<Array<String>>): Boolean {
 @Preview
 @Composable
 fun PreviewPantallaJuego() {
-    PantallaJuego("Jugador 1", "Jugador 2", 3)
+    TicTacToeTheme {
+        PantallaJuego("Jugador 1", "Jugador 2", 3)
+    }
 }

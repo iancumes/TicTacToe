@@ -16,14 +16,17 @@ import android.content.Intent
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import edu.uvg.ian.tictactoe.ui.theme.TicTacToeTheme
 
 
 class GanadorScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val ganador = intent.getStringExtra("ganador") ?: "Empate"
-            PantallaGanador(ganador)
+            TicTacToeTheme {
+                val ganador = intent.getStringExtra("ganador") ?: "Empate"
+                PantallaGanador(ganador)
+            }
         }
     }
 }
@@ -52,5 +55,7 @@ fun PantallaGanador(ganador: String) {
 @Preview
 @Composable
 fun PreviewPantallaGanador() {
-    PantallaGanador("Jugador 1")
+    TicTacToeTheme {
+        PantallaGanador("Jugador 1")
+    }
 }

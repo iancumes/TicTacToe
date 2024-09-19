@@ -32,6 +32,14 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.TicTacToe" />
 
+        <!-- Pantalla de ganador (GanadorScreen) -->
+         <activity
+            android:name=".GanadorScreen"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.TicTacToe" />
+
+
     </application>
 
 </manifest>

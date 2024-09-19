@@ -22,22 +22,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+
+
+
+
 class GameScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val jugador1 = intent.getStringExtra("jugador1") ?: "Jugador 1"
             val jugador2 = intent.getStringExtra("jugador2") ?: "Jugador 2"
-            val tamanoTablero = intent.getIntExtra("tamañoTablero", 3)
-            PantallaJuego(jugador1, jugador2, tamanoTablero)
+            val tamañoTablero = intent.getIntExtra("tamañoTablero", 3)
+            PantallaJuego(jugador1, jugador2, tamañoTablero)
         }
     }
 }
 
 @Composable
-fun PantallaJuego(jugador1: String, jugador2: String, tamano: Int) {
+fun PantallaJuego(jugador1: String, jugador2: String, tamaño: Int) {
     val context = LocalContext.current
-    var tablero = remember { Array(tamano) { Array(tamano) { "" } } } // Matriz de tablero
+    var tablero = remember { Array(tamaño) { Array(tamaño) { "" } } } // Matriz de tablero
     var turno by remember { mutableStateOf(if ((1..2).random() == 1) jugador1 else jugador2) }
     var ganador by remember { mutableStateOf<String?>(null) }
 
@@ -49,9 +53,9 @@ fun PantallaJuego(jugador1: String, jugador2: String, tamano: Int) {
         Text("Turno de: $turno")
         Spacer(modifier = Modifier.height(16.dp))
 
-        for (i in 0 until tamano) {
+        for (i in 0 until tamaño) {
             Row {
-                for (j in 0 until tamano) {
+                for (j in 0 until tamaño) {
                     Box(
                         modifier = Modifier
                             .size(80.dp)
@@ -89,17 +93,41 @@ fun PantallaJuego(jugador1: String, jugador2: String, tamano: Int) {
     }
 }
 
-// Función para verificar si el jugador ha ganado
+// Modificación de la función para verificar siempre 3 en línea
 fun verificarGanador(tablero: Array<Array<String>>, simbolo: String): Boolean {
     val size = tablero.size
-    // Verifica filas, columnas y diagonales
+    // Verifica filas
     for (i in 0 until size) {
-        if (tablero[i].all { it == simbolo }) return true // Filas
-        if ((0 until size).all { tablero[it][i] == simbolo }) return true // Columnas
+        for (j in 0 until size - 2) { // Verifica solo cuando puede haber 3 consecutivos
+            if (tablero[i][j] == simbolo && tablero[i][j + 1] == simbolo && tablero[i][j + 2] == simbolo) {
+                return true
+            }
+        }
     }
-    // Diagonales
-    if ((0 until size).all { tablero[it][it] == simbolo }) return true // Diagonal principal
-    if ((0 until size).all { tablero[it][size - it - 1] == simbolo }) return true // Diagonal secundaria
+    // Verifica columnas
+    for (i in 0 until size - 2) { // Verifica solo cuando puede haber 3 consecutivos
+        for (j in 0 until size) {
+            if (tablero[i][j] == simbolo && tablero[i + 1][j] == simbolo && tablero[i + 2][j] == simbolo) {
+                return true
+            }
+        }
+    }
+    // Verifica diagonal principal
+    for (i in 0 until size - 2) {
+        for (j in 0 until size - 2) {
+            if (tablero[i][j] == simbolo && tablero[i + 1][j + 1] == simbolo && tablero[i + 2][j + 2] == simbolo) {
+                return true
+            }
+        }
+    }
+    // Verifica diagonal secundaria
+    for (i in 0 until size - 2) {
+        for (j in 2 until size) {
+            if (tablero[i][j] == simbolo && tablero[i + 1][j - 1] == simbolo && tablero[i + 2][j - 2] == simbolo) {
+                return true
+            }
+        }
+    }
     return false
 }
 

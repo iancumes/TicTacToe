@@ -58,7 +58,7 @@ fun PantallaJuego(jugador1: String, jugador2: String, tamaño: Int) {
                 for (j in 0 until tamaño) {
                     Box(
                         modifier = Modifier
-                            .size(100.dp)
+                            .size(80.dp)
                             .border(2.dp, Color.Black) // Añadimos borde negro para la visibilidad
                             .background(Color.White)
                             .padding(4.dp)
